@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import pokemon from 'pokemontcgsdk';
+import Advanced from './advanced.jsx'
 
 function App() {
   const [dex, setDex] = useState([]);
   const [filteredDex, setFilteredDex] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false); // Add loading state
+  const [currentAdvance, setCurrentAdvance] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,8 +16,11 @@ function App() {
         setLoading(true); // Set loading to true before fetching data
         const apiKey = "8f969dc9-5b3a-4d1e-ad5f-6d6f4c0fdc6a";
         pokemon.configure({ apiKey });
+        
+        // Fetch Pokémon cards based on the search term
         const cards = await pokemon.card.all({ q: `name:${searchTerm}` });
         console.log(cards);
+        
         setDex(cards);
         setFilteredDex(cards);
       } catch (error) {
@@ -40,14 +45,24 @@ function App() {
     setSearchTerm('');
   };
 
+  // Define the AdvancedSearch function
+  const AdvancedSearch = () => {
+    setCurrentAdvance(!currentAdvance);
+  };
+
   return (
     <>
       <form className="search-form" onSubmit={submitSearchTerm}>
-  <div className="input-container">
-    <input type="text" value={searchTerm} onChange={handleSearchTermChange} />
-    <button type="submit">Search</button>
-  </div>
-</form>
+        <div className="input-container">
+          <input type="text" value={searchTerm} onChange={handleSearchTermChange} />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      <div>
+        <button onClick={AdvancedSearch}>Advanced Search</button>
+      </div>
+      {currentAdvance && <Advanced />}
+
       {loading ? (
         <p className='loading'>Loading...</p>
       ) : (
