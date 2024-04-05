@@ -61,7 +61,7 @@ function App() {
       <div>
         <button onClick={AdvancedSearch}>Advanced Search</button>
       </div>
-      {currentAdvance && <Advanced />}
+      {currentAdvance && <Advanced setFilteredDex={setFilteredDex} />}
 
       {loading ? (
         <p className='loading'>Loading...</p>

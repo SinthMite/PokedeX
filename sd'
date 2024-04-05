@@ -1,0 +1,38 @@
+<section id="subtypes" name='subtypes'>
+    <h2>Subtypes</h2>
+    <select name="subtype">
+        <option value="">Select One</option>
+        {subtypes.map((subtype, index) => (
+            <option key={index} value={subtype}>{subtype}</option>
+        ))}
+    </select>
+</section>
+                <section id="types" name='types'>
+                    <h2>Types</h2>
+                    <select name="type">
+                        <option value="">Select One</option>
+                        {types.map((type, index) => (
+                            <option key={index} value={type}>{type}</option>
+                        ))}
+                    </select>
+                </section>
+                <section id="rarity" name='rarity'>
+                    <h2>Rarity</h2>
+                    <select name="rarity">
+                        <option value="">Select One</option>
+                        {rarities.map((rarity, index) => (
+                            <option key={index} value={rarity}>{rarity}</option>
+                        ))}
+                    </select>
+                </section>
+
+
+
+                const subtypesData = await pokemon.subtype.all();
+                const typesData = await pokemon.type.all();
+                const raritiesData = await pokemon.rarity.all();
+
+
+                setSubtypes(subtypesData);
+                setTypes(typesData);
+                setRarities(raritiesData);
